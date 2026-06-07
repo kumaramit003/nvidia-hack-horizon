@@ -9,3 +9,7 @@ nemoclaw my-assistant exec -- bash -lc 'export PATH="/sandbox/.local/bin:/tmp/np
 nemoclaw my-assistant exec -- bash -lc 'export PATH="/sandbox/.local/bin:/tmp/npm-global/bin:$PATH"; mcporter config remove govuk 2>/dev/null || true; mcporter config add govuk https://govuk-mcp.fly.dev/mcp --transport http --scope home'
 nemoclaw my-assistant exec -- bash -lc 'export PATH="/sandbox/.local/bin:/tmp/npm-global/bin:$PATH"; mcporter config add uk-property https://uk-property-mcp.fly.dev/mcp --transport http --scope home'
 nemoclaw my-assistant exec -- bash -lc 'export PATH="/sandbox/.local/bin:/tmp/npm-global/bin:$PATH"; mcporter config add playwright --command "npx -y @playwright/mcp@latest" --transport stdio --scope home'
+
+
+mcporter call govuk.govuk_search query="NHS 111" count:2 --output json
+mcporter call govuk.govuk_search query="..." count:2 --output json
