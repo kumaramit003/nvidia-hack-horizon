@@ -1,12 +1,12 @@
 # NemoClaw setup (Care Compass)
 
-Run on your **dcloud VM** (Ubuntu + Docker). Three steps:
+Run on your **VM** (Ubuntu + Docker). Three steps:
 
 1. **Install / verify NIM** — inference endpoint reachable from the VM
 2. **Onboard NemoClaw** — CLI + OpenClaw sandbox
 3. **Configure skills and network** — mcporter, MCP, weather, egress policies
 
-Default sandbox name: `**my-assistant`**
+Default sandbox name: **`my-assistant`**
 
 ---
 
@@ -57,13 +57,11 @@ NEMOCLAW_MODEL=nvidia/nemotron-3-nano
 COMPATIBLE_API_KEY=EMPTY
 ```
 
-
-| Setting                 | Notes                                                   |
-| ----------------------- | ------------------------------------------------------- |
-| `NEMOCLAW_ENDPOINT_URL` | Include `**/v1**` for `fresh-setup.sh` / onboard        |
-| `NEMOCLAW_MODEL`        | Must match `/v1/models` (e.g. `nvidia/nemotron-3-nano`) |
-| `COMPATIBLE_API_KEY`    | Use `EMPTY` if the NIM accepts any bearer token         |
-
+| Setting | Notes |
+| --- | --- |
+| `NEMOCLAW_ENDPOINT_URL` | Include **`/v1`** for `nemoclaw-setup.sh` / onboard |
+| `NEMOCLAW_MODEL` | Must match `/v1/models` (e.g. `nvidia/nemotron-3-nano`) |
+| `COMPATIBLE_API_KEY` | Use `EMPTY` if the NIM accepts any bearer token |
 
 ---
 
@@ -72,8 +70,8 @@ COMPATIBLE_API_KEY=EMPTY
 Installs the NemoClaw CLI, creates the sandbox, points OpenClaw at your NIM, and runs `recover`.
 
 ```bash
-chmod +x fresh-setup.sh
-./fresh-setup.sh
+chmod +x nemoclaw-setup.sh
+./nemoclaw-setup.sh
 ```
 
 What it does:
@@ -108,11 +106,11 @@ NEMOCLAW_ENDPOINT_URL=http://your-host/v1 \
 
 ## 3. Configure skills and network
 
-Single script after `fresh-setup.sh`: Open-tier egress, mcporter, GOV.UK MCP, filesystem MCP, bundled weather skill.
+Single script after `nemoclaw-setup.sh`: Open-tier egress, mcporter, GOV.UK MCP, filesystem MCP, bundled weather skill.
 
 ```bash
-chmod +x mcporter-setup.sh
-./mcporter-setup.sh
+chmod +x skills-setup.sh
+./skills-setup.sh
 ```
 
 ### Network
@@ -130,14 +128,12 @@ nemoclaw my-assistant policy-list
 
 ### Skills / MCP
 
-
-| Component      | Purpose                                                          |
-| -------------- | ---------------------------------------------------------------- |
-| **mcporter**   | CLI to call MCP servers from exec                                |
-| **govuk**      | `https://govuk-mcp.fly.dev/mcp` (GOV.UK search, orgs, postcodes) |
-| **filesystem** | Workspace-scoped files under `/sandbox/.openclaw/workspace`      |
-| **weather**    | Bundled OpenClaw weather skill + wttr.in egress                  |
-
+| Component | Purpose |
+| --- | --- |
+| **mcporter** | CLI to call MCP servers from exec |
+| **govuk** | `https://govuk-mcp.fly.dev/mcp` (GOV.UK search, orgs, postcodes) |
+| **filesystem** | Workspace-scoped files under `/sandbox/.openclaw/workspace` |
+| **weather** | Bundled OpenClaw weather skill + wttr.in egress |
 
 Smoke tests (inside sandbox after connect):
 
@@ -176,7 +172,6 @@ COMPATIBLE_API_KEY=EMPTY
 # NEMOCLAW_PROXY_PORT=3128
 ```
 
-
 ## Quick reference
 
 ```bash
@@ -187,4 +182,3 @@ cp env.example env.local    # edit NIM URL
 ./skills-setup.sh
 nemoclaw my-assistant connect && openclaw tui
 ```
-
